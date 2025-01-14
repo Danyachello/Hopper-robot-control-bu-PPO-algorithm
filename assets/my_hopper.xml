@@ -1,0 +1,44 @@
+
+  <mujoco model = "hopper">
+<option timestep="0.001" integrator="implicitfast"/>
+<asset>
+    <texture name="skybox" builtin="gradient" rgb1="0.29999999999999999 0.5 0.69999999999999996" rgb2="0 0 0" width="512" height="3072"/>
+    <texture name="grouplane" type="2d" builtin="checker" rgb1="0.20000000000000001 0.29999999999999999 0.40000000000000002" rgb2="0.10000000000000001 0.20000000000000001 0.29999999999999999" mark="edge" markrgb="0.80000000000000004 0.80000000000000004 0.80000000000000004" width="300" height="300"/>
+    <material name="groundplane_mat" texture="grouplane" texrepeat="5 5" texuniform="true" reflectance="0.20000000000000001"/>
+</asset>
+
+<worldbody>
+    <geom name="floor" type="plane" conaffinity="15" condim="3" size="0 0 0.125" material="groundplane_mat"/>
+    <light name="global_light" directional="false" pos="0 0 3" dir="0 0 -1"/>
+    <body name = "main_body" pos = "0 0 1.5" euler = "0 0 0">
+    <joint name="main_body" type="slide" axis="0 0 1" ref="0.0"/>
+        
+        <camera name = "main" mode = "track" pos="0 -3 1" zaxis="0 -1 0.5"/>
+        <geom name = "geom_main" type = "box" size = "0.3 0.4 0.1" rgba="0 0.29999999999999999 0.5 1" mass="7"/>
+        <site name="main_site" size="9.9999999999999995e-07 9.9999999999999995e-07 9.9999999999999995e-07" pos="0 -0.16 0"/>
+        <body pos="0 0 -0.1" name="upper_link">
+            <geom name = "upper_link_geom" type = "capsule" size = "0.03" fromto = "0 0 0 0 0 -0.3" rgba="0 0.29999999999999999 0.5 1" mass="1"/>
+            <joint name = "upper_joint" type = "hinge" axis = "0 1 0" ref = "0" armature="0.010901249999999999" damping="0.103900000000000001" frictionloss="0.13339999999999999" range="-80 10" pos = "0 0 0"/>
+            <site name="upper_link_site" size="9.9999999999999995e-07 9.9999999999999995e-07 9.9999999999999995e-07" pos="0 -0.050000000000000003 -0.40000000000000002"/>
+            <body pos="0 0 -0.3" name="lower_link">
+                <geom name = "lower_link_geom" type = "capsule" size = "0.03" fromto = "0 0 0 0 0 -0.6" rgba="0 0.29999999999999999 0.5 1" mass="1"/>
+                <joint name = "lower_joint" type = "hinge" axis = "0 1 0" ref = "0" armature="0.010901249999999999" damping="0.073900000000000001" range="-20 80" frictionloss="0.13339999999999999" springref = "57.3" stiffness="100.0"/>
+                <site name="lower_link_site" size="9.9999999999999995e-07 9.9999999999999995e-07 9.9999999999999995e-07" pos="0 -0.050000000000000003 -0.40000000000000002"/>
+            </body>
+        </body>
+    </body>
+</worldbody>
+<actuator>
+    <motor name="upper" joint="upper_joint" ctrlrange="-1 1" gear="25" />
+    <motor name="lower" joint="lower_joint" ctrlrange="-1 1" gear="120" />
+
+</actuator>
+<contact>
+    <exclude body1="main_body" body2="upper_link"/>
+    <exclude body1="upper_link" body2="lower_link"/>
+  </contact>
+  <keyframe>
+    <key name="init" qpos="0 -0.73 1.02"/>
+  </keyframe>
+</mujoco>
+    
