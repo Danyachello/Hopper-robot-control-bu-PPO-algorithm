@@ -14,7 +14,6 @@ Download repo:
 
 ```shell
 $ git clone https://github.com/Danyachello/Hopper-robot-control-bu-PPO-algorithm.git
-$ cd Hopper-robot-control-bu-PPO-algorithm
 ```
 This project was performed on ubuntu os, so it is crutial to run it om ubuntu.
 All following commands are expected to be run in the project root directory.
