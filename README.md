@@ -15,7 +15,7 @@ Download repo:
 ```shell
 $ git clone https://github.com/Danyachello/Hopper-robot-control-bu-PPO-algorithm.git
 ```
-This project was performed on ubuntu os, so it is crutial to run it om ubuntu.
+This project was performed on ubuntu os, so it is crutial to run it on ubuntu. Python version is 3.11.11
 All following commands are expected to be run in the project root directory.
 
 [Install conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
